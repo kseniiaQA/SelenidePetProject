@@ -3,11 +3,14 @@ import com.codeborne.selenide.Selenide;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 
 abstract public class BaseTest {
 
      public void  Setup() {
+
+         WebDriver wd = new WebDriver();
          WebDriverManager.chromedriver();
          Configuration.browser = "chrome";
          Configuration.driverManagerEnabled = true;

@@ -36,6 +36,7 @@ public class MainPage {
     private final SelenideElement message = $x("//button[@id='messageWindowButton']");
     private final SelenideElement alert = $x("//button[@id='confirmButton']");
 
+    private final SelenideElement autocomplete = $x("//div[@class='auto-complete__value-container css-1hwfws3']");
 
     //выполняется поиск среди статей и нажимается enter
     protected String getEmail() {
@@ -94,4 +95,10 @@ public class MainPage {
     public void alert() {
         alert.click();
     }
+
+    public void autocomplete() {
+      autocomplete.sendKeys("gr");
+    }
 }
+
+
