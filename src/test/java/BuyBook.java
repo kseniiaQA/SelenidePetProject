@@ -1,12 +1,15 @@
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import org.junit.Before;
 import org.junit.Test;
 import resources.BookPage;
 
+import static com.codeborne.selenide.CollectionCondition.size;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$x;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selectors.byXpath;
+import static com.codeborne.selenide.Selenide.*;
+
 
 public class BuyBook    extends BaseTest {
 
@@ -31,7 +34,7 @@ public class BuyBook    extends BaseTest {
         open("https://demoqa.com/profile");
         $x(("//span[@id='see-book-Git Pocket Guide']")).shouldBe(visible);
         bookPage.deleteAndAcceptDeletion();
-        Selenide.switchTo().alert().accept(); 
+        Selenide.switchTo().alert().accept();
         Thread.sleep(20000);
         $x(("//span[@id='see-book-Git Pocket Guide']")).shouldNotBe(visible);
 
@@ -49,6 +52,32 @@ public class BuyBook    extends BaseTest {
         bookPage.deleteAndDeclineDeletion();
         Thread.sleep(20000);
         $x(("//span[@id='see-book-Git Pocket Guide']")).shouldBe(visible);
+    }
+
+
+    @Test
+    public void search() throws InterruptedException {
+
+        open("https://demoqa.com/books");
+        $x(("//input[@id='searchBox']")).sendKeys("pro");
+        Thread.sleep(20000);
+        $(byXpath("//a[text()='Programming JavaScript Applications']")).shouldBe(visible);
+
+    }
+
+
+    @Test
+    public void rowsCount() throws InterruptedException {
+
+        open("https://demoqa.com/books");
+        $x(("//input[@id='searchBox']")).sendKeys("pro");
+        Thread.sleep(20000);
+        $(byXpath("//a[text()='Programming JavaScript Applications']")).shouldBe(visible);
+        $x(("//select[@aria-label='rows per page']")).click();
+        $x(("//option[@value='25']")).click();
+//        $$(("//div[@class='rt-tr-group']")).shouldHave(size(25));
+
+
     }
 }
 
